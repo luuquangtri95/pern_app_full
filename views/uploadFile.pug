@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  form(enctype="multipart/form-data" action="/api/v1/upload-pic" method="POST")
+    label Avatar:
+    input(type="file" name="picture")
+    hr
+    div
+      button(type="submit") Save File
