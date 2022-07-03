@@ -4,7 +4,7 @@ const findAll = async () => {
   try {
     return await db.Product.findAll({
       attributes: ['id', 'title', 'imageList', 'price', 'description'],
-      include: { model: db.Brand, attributes: ['id', 'name'] },
+      include: { model: db.Brand, as: 'brand', attributes: ['id', 'name'] },
       order: [['id', 'DESC']],
     })
   } catch (error) {
@@ -17,7 +17,7 @@ const findById = async (id) => {
     return await db.Product.findOne({
       where: { id },
       attributes: ['id', 'title', 'imageList', 'description'],
-      include: { model: db.Brand, attributes: ['id', 'name'] },
+      include: { model: db.Brand, as: 'brand', attributes: ['id', 'name'] },
     })
   } catch (error) {
     throw error
@@ -72,7 +72,7 @@ const update = async (dataProduct) => {
           description: dataProduct.data.description,
           price: dataProduct.data.price,
           imageList: dataProduct.data.imageList,
-          brandId: dataProduct.data.BrandId,
+          brandId: dataProduct.data.brandId,
         },
         {
           where: { id: dataProduct.id },
