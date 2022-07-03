@@ -9,4 +9,6 @@ router.get('/products/:id', productController.findById)
 router.put('/products/:id', uploadMiddleware.uploadMultiImg, productController.update)
 router.delete('/products/:id', productController._delete)
 
+router.get('/brands', productController.getAllBrand)
+
 module.exports = router

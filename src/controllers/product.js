@@ -68,10 +68,20 @@ const _delete = async (req, res) => {
   }
 }
 
+const getAllBrand = async (req, res) => {
+  try {
+    const result = await productService.getAllBrand()
+    return ResponseHandler.success(res, result)
+  } catch (error) {
+    return ResponseHandler.error(res, error)
+  }
+}
+
 module.exports = {
   findAll,
   findById,
   create,
   update,
   _delete,
+  getAllBrand,
 }

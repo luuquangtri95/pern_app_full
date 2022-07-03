@@ -3,8 +3,9 @@ const db = require('../models')
 const findAll = async () => {
   try {
     return await db.Product.findAll({
-      attributes: ['id', 'title', 'imageList', 'description'],
-      include: { model: db.Brand, attributes: ['name'] },
+      attributes: ['id', 'title', 'imageList', 'price', 'description'],
+      include: { model: db.Brand, attributes: ['id', 'name'] },
+      order: [['id', 'DESC']],
     })
   } catch (error) {
     throw error
@@ -16,7 +17,7 @@ const findById = async (id) => {
     return await db.Product.findOne({
       where: { id },
       attributes: ['id', 'title', 'imageList', 'description'],
-      include: { model: db.Brand, attributes: ['name'] },
+      include: { model: db.Brand, attributes: ['id', 'name'] },
     })
   } catch (error) {
     throw error
@@ -71,6 +72,7 @@ const update = async (dataProduct) => {
           description: dataProduct.data.description,
           price: dataProduct.data.price,
           imageList: dataProduct.data.imageList,
+          brandId: dataProduct.data.BrandId,
         },
         {
           where: { id: dataProduct.id },
@@ -84,10 +86,21 @@ const update = async (dataProduct) => {
   }
 }
 
+const getAllBrand = async () => {
+  try {
+    return await db.Brand.findAll({
+      attributes: ['id', 'name'],
+    })
+  } catch (error) {
+    throw error
+  }
+}
+
 module.exports = {
   findAll,
   findById,
   create,
   _delete,
   update,
+  getAllBrand,
 }
