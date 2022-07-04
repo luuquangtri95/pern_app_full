@@ -48,9 +48,7 @@ const update = async (req, res) => {
         imageList: [...changeUrl(req.files)],
       },
     }
-
     const result = await productService.update(response)
-
     return ResponseHandler.success(res, result)
   } catch (error) {
     return ResponseHandler.error(res, error)
