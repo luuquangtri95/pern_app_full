@@ -28,11 +28,10 @@ const create = async (req, res) => {
   try {
     const data = {
       ...req.body,
-      imageList: changeUrl(req.files),
+      image: changeUrl(req.files),
     }
 
     const result = await productService.create(data)
-
     return ResponseHandler.success(res, result)
   } catch (error) {
     return ResponseHandler.error(res, error)

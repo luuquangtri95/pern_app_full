@@ -26,12 +26,12 @@ const findById = async (id) => {
 
 const create = async (data) => {
   try {
-    const { title, description, price, brandId, imageList } = data
+    const { title, description, price, brandId, image } = data
     return await db.Product.create({
       title,
       description,
       price,
-      imageList,
+      imageList: image,
       brandId,
     })
   } catch (error) {

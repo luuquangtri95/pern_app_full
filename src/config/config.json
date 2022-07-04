@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "postgres",
-    "password": "12345",
+    "password": "123456tri",
     "database": "pern_app",
     "host": "localhost",
     "dialect": "postgres"
