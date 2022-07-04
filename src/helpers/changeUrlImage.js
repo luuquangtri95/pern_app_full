@@ -1,5 +1,8 @@
 const changeUrl = (array = []) => {
-  return array.map((item) => `${item.destination}/${item.filename}`.slice(1))
+  return array.map((item) => {
+    const removePublic = item.destination.split('/').slice(2).join('/')
+    return `/${removePublic}/${item.filename}`
+  })
 }
 
 module.exports = changeUrl
