@@ -1,4 +1,5 @@
 const db = require('../models')
+const { productSchema } = require('../helpers/validation_schema')
 
 const findAll = async () => {
   try {
@@ -27,6 +28,7 @@ const findById = async (id) => {
 const create = async (data) => {
   try {
     const { title, description, price, brandId, image } = data
+
     return await db.Product.create({
       title,
       description,
@@ -35,7 +37,9 @@ const create = async (data) => {
       brandId,
     })
   } catch (error) {
-    throw error
+    if (error.isJoi === true) {
+      throw new Error()
+    }
   }
 }
 
@@ -59,23 +63,24 @@ const _delete = async (id) => {
   }
 }
 
-const update = async (dataProduct) => {
+const update = async (req) => {
   try {
     const product = await db.Product.findOne({
-      where: { id: dataProduct.id },
+      where: { id: req.body.id },
+      raw: true,
     })
 
     if (product) {
       return await db.Product.update(
         {
-          title: dataProduct.data.title,
-          description: dataProduct.data.description,
-          price: dataProduct.data.price,
-          imageList: dataProduct.data.imageList,
-          brandId: dataProduct.data.brandId,
+          title: req.body.title,
+          description: req.body.description,
+          price: req.body.price,
+          imageList: req.body.imageList,
+          brandId: req.body.brandId,
         },
         {
-          where: { id: dataProduct.id },
+          where: { id: req.body.id },
         },
       )
     } else {

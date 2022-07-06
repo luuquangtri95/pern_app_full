@@ -31,6 +31,8 @@ const create = async (req, res) => {
       image: changeUrl(req.files),
     }
 
+    console.log('2. controller', data)
+
     const result = await productService.create(data)
     return ResponseHandler.success(res, result)
   } catch (error) {
@@ -40,14 +42,14 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
   try {
-    const response = {
-      id: req.params.id,
-      data: {
-        ...req.body,
-        imageList: [...changeUrl(req.files)],
-      },
-    }
-    const result = await productService.update(response)
+    // const response = {
+    //   id: req.params.id,
+    //   data: {
+    //     ...req.body,
+    //     imageList: [...changeUrl(req.files)],
+    //   },
+    // }
+    const result = await productService.update(req)
     return ResponseHandler.success(res, result)
   } catch (error) {
     return ResponseHandler.error(res, error)
